@@ -1,6 +1,8 @@
 corr <- function(directory, threshold = 0) {
     filelist <- list.files(directory)
 
+    shortlist <- c()
+
     counter <- 0
     oz <- '0'
     tz <- '00'
@@ -26,10 +28,13 @@ corr <- function(directory, threshold = 0) {
         }
 
         result <- (leng - counter)
-        results <- append(results, result)
+        if (result >= threshold) {
+            results <- append(results, result)
+            shortlist <- append(shortlist, a)
+        }
     }
 
-output <- data.frame(id = filelist, nobs = results)
+output <- data.frame(id = shortlist, nobs = results)
 
 return(output)
 
